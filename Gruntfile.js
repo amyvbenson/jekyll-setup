@@ -258,7 +258,7 @@ module.exports = function(grunt) {
                 options: {
                   dir: '<%= app.dist %>/<%= app.baseurl %>',
                   remote: 'git@github.com:amyvbenson/jekyll-setup.git',
-                  branch: 'master',
+                  branch: 'gh-pages',
                   commit: true,
                   push: true,
                   connectCommits: false
