@@ -14,7 +14,7 @@ module.exports = function(grunt) {
       },
       watch: {
         sass: {
-          files: ['<%= app.app %>/_assets/scss/**/*.{scss,sass}'],
+          files: ['<%= app.app %>/_assets/sass/*.scss'],
           tasks: ['sass:server', 'autoprefixer']
         },
         scripts: {
@@ -136,16 +136,9 @@ module.exports = function(grunt) {
             },
             sass: {
               server: {
-                options: {
-                  sourceMap: true
-                },
-                files: [{
-                  expand: true,
-                  cwd: '<%= app.app %>/_assets/scss',
-                  src: '**/*.{scss,sass}',
-                  dest: '.tmp/<%= app.baseurl %>/css',
-                  ext: '.css'
-                }]
+                files: {
+                  '.tmp/<%= app.baseurl %>/css/styles.css': '<%= app.app %>/_assets/sass/base.scss'
+                }
               },
               dist: {
                 options: {
@@ -153,7 +146,7 @@ module.exports = function(grunt) {
                 },
                 files: [{
                   expand: true,
-                  cwd: '<%= app.app %>/_assets/scss',
+                  cwd: '<%= app.app %>/_assets/sass',
                   src: '**/*.{scss,sass}',
                   dest: '<%= app.dist %>/<%= app.baseurl %>/css',
                   ext: '.css'
@@ -251,6 +244,18 @@ module.exports = function(grunt) {
                   ],
                   dest: '<%= app.dist %>/<%= app.baseurl %>'
                 }]
+              },
+              server: {
+                files: [{
+                  expand: true,
+                  dot: true,
+                  cwd: '.tmp/<%= app.baseurl %>',
+                  src: [
+                  'css/**/*',
+                  'js/**/*'
+                  ],
+                  dest: '.jekyll'
+                }]
               }
             },
             buildcontrol: {
@@ -277,7 +282,7 @@ module.exports = function(grunt) {
         'clean:server',
         'jekyll:server',
         'sass:server',
-        'autoprefixer',
+        // 'autoprefixer',
         'uglify',
         'connect:livereload',
         'watch'
@@ -298,7 +303,7 @@ module.exports = function(grunt) {
       // 'uncss',
       // 'autoprefixer',
       // 'cssmin',
-      // 'uglify',
+      'uglify',
       // 'critical',
       // 'htmlmin'
       ]);
